@@ -3,9 +3,33 @@
     <head>
         <meta charset="UTF-8">
         <title>Benny's Pizza</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
     </head>
     <body>
-        <h1>Welcome to Benny's Pizza on Route 715!</h1>
-        <p>Explore our menu and learn more about us!</p>
+        <div class="header">   
+            <h1>Welcome to Benny's Pizza on Route 715!</h1>
+            <p>Phone Number goes here.</p>
+            <p>Dine-in - Take-out - Catering - Deliveries - Parties</p>
+        </div>
+
+        <div class="nav">
+            <div>Starters</div>
+            <div>Pizza</div>
+            <div>Subs</div>
+            <div>Hot Meals</div>
+            <div>Desserts</div>
+            <div>Catering</div>
+        </div>
+
+        <div class="footer">
+            <div>Address Here</div>
+            <div>
+                <p>Accepted Payments:</p>
+                <span>Mastercard</span> - <span>Visa</span>
+            </div>
+            <div><a href="link-to-fb-page">Link to FB</a></div>
+        </div>
+
+
     </body>
 </html>
