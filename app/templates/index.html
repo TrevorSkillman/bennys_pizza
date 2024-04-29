@@ -15,19 +15,19 @@
         <div class="nav">
             <div id="starters-section">
                 <h2>Starters</h2>
-                <a href="/starters" class="button">Starters</a>
+                <a class="button" onclick="loadSection('starters')">Starters</a>
             </div>
             <div id="pizza-section">
                 <h2>Pizza</h2>
-                <a href="/pizza" class="button">Pizza</a>
+                <a class="button" onclick="loadSection('pizza')">Pizza</a>
             </div>
             <div id="sub-selection">
                 <h2>Subs</h2>
-                <a href="/subs" class="button">Subs</a>
+                <a class="button" onclick="loadSection('subs')">Subs</a>
             </div>
             <div id="meal-selection">
                 <h2>Meals</h2>
-                <a href="/meals" class="button">Meals</a>
+                <a class="button" onclick="loadSection('meals')">Meals</a>
             </div>
             <div id="dessert-selection">
                 <h2>Desserts</h2>
@@ -48,6 +48,84 @@
             <div><a href="link-to-fb-page">Link to FB</a></div>
         </div>
 
+        <!-- The div where the dynamic content will be loaded-->
+        <div id="content-area">
+            <div id="menu-content"></div>
+        </div>
+        
 
+        <!-- JavaScript to make AJAX request when starts is clicked -->
+        <script>
+            function loadSection(section){
+                const url = `/menu/${section}`;
+                console.log(`Attempting to fetch data from: ${url}`);
+                fetch(url)
+                .then(response => {
+                    console.log(`Response received for ${section}`);  // Check if the fetch gets a response
+                    return response.json();
+                })
+                .then(subcategories => {
+                    const menuContent = document.getElementById('menu-content');
+                    menuContent.innerHTML = ''; // Clearing current content
+                    console.log(`Updating UI for ${section}`, subcategories);  // Check what data is received
+
+                    // Appending the subcategories
+                    subcategories.forEach(cat => {
+                        const subcategoryDiv = document.createElement('div');
+                        subcategoryDiv.textContent = cat.name;
+                        subcategoryDiv.onclick = function() { loadItems(cat.id); };
+                        subcategoryDiv.classList.add('button');
+                        menuContent.appendChild(subcategoryDiv);
+                    });
+                })
+                    .catch(error => console.error('Error: ', error));
+                }
+            
+            function loadItems(categoryId) {
+                console.log(`Loading item for category: ${categoryId}`);
+                fetch(`/menu/items/${categoryId}`)
+                    .then(response => response.json())
+                    .then(items => {
+                        if (!Array.isArray(items)) {
+                            console.error('Expected an array of items, but got:', items);
+                        }else {
+                            displayItems(items);
+                        }
+                    })
+                    .catch(error => console.error('Error: ', error));
+            }
+
+            function displayItems(items){
+                const menuContent = document.getElementById('menu-content');
+                menuContent.innerHTML = ''; // Clearing current content
+
+                items.forEach(item => {
+                    // Create a container for each menu item
+                    const itemContainer = document.createElement('div');
+                    itemContainer.classList.add('menu-item');
+
+                    // Add the item name
+                    const itemName = document.createElement('h3');
+                    itemName.textContent = item.name;
+                    itemContainer.appendChild(itemName);
+
+                    // Check if the item has small size and add it to the container
+                    if (item.price_small){
+                        const smallSize = document.createElement('p');
+                        smallSize.textContent = `Small - $${item.price_small}`;
+                        itemContainer.appendChild(smallSize);
+                    }
+
+                    // Check it the item has large size and add it to the container 
+                    if(item.price_large){
+                        const largeSize = document.createElement('p');
+                        largeSize.textContent = `Large - $${item.price_large}`;
+                        itemContainer.appendChild(largeSize);
+                    }
+                    // Appen the item container to the menu content area
+                    menuContent.appendChild(itemContainer);
+                });
+            }
+        </script>
     </body>
 </html>
