@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Benny's Pizza</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
+    </head>
+    <body>
+        <div class="header">   
+            <h1>Welcome to Benny's Pizza on Route 715!</h1>
+            <p>Phone Number goes here.</p>
+            <p>Dine-in - Take-out - Catering - Deliveries - Parties</p>
+        </div>
+
+        <div class="nav">
+            <div id="button-banner">
+                <a class="button" onclick="loadSection('starters')">Starters</a>
+                <a class="button" onclick="loadSection('pizza')">Pizza</a>
+                <a class="button" onclick="loadSection('subs')">Subs</a>
+                <a class="button" onclick="loadSection('meals')">Meals</a>
+                <a class="button" onclick="loadSection('desserts')">Desserts</a>
+                <a class="button" onclick="loadSection('catering')">Catering</a>
+            </div>
+        </div>
+
+        <!-- The div where the dynamic content will be loaded-->
+        <div id="content-area">
+            <div id="menu-content"></div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-section left">
+                <p>1523 Route 715, Stroudsburg, PA 18360</p>
+            </div>
+            <div class="footer-section center">
+                <p>Forms of Payment:</p>
+                <img src="{{ url_for('static', filename='mastercar_logo.png') }}" alt="MC Card" style="height: 40px;">
+                <img src="{{ url_for('static', filename='visa_logo.png') }}" alt="Visa Card" style="height: 40px;">
+            </div>
+            <div class="footer-section right">
+                <div><a href="link-to-fb-page">Link to FB</a></div>
+            </div>
+        </div>
+        
+
+        <!-- JavaScript to make AJAX request when starts is clicked -->
+        <script>
+            function loadSection(section){
+                const url = `/menu/${section}`;
+                console.log(`Attempting to fetch data from: ${url}`);
+                fetch(url)
+                .then(response => {
+                    console.log(`Response received for ${section}`);  // Check if the fetch gets a response
+                    return response.json();
+                })
+                .then(data => {
+                    const menuContent = document.getElementById('menu-content');
+                    menuContent.innerHTML = ''; // Clearing current content
+                    
+
+                    if(section === 'desserts' || section === 'catering'){
+                        displayItems(data);
+                    }else{
+                        console.log(`Updating UI for ${section}`, data);  // Check what data is received
+                        // Appending the subcategories
+                        data.forEach(cat => {
+                            const subcategoryDiv = document.createElement('div');
+                            subcategoryDiv.textContent = cat.name;
+                            subcategoryDiv.onclick = function() { loadItems(cat.id); };
+                            subcategoryDiv.classList.add('button');
+                            menuContent.appendChild(subcategoryDiv);
+                    });
+                }
+            })
+            .catch(error => console.error('Error: ', error));
+            }
+            
+            function loadItems(categoryId) {
+                console.log(`Loading item for category: ${categoryId}`);
+                fetch(`/menu/items/${categoryId}`)
+                    .then(response => response.json())
+                    .then(items => {
+                        if (!Array.isArray(items)) {
+                            console.error('Expected an array of items, but got:', items);
+                        }else {
+                            displayItems(items);
+                        }
+                    })
+                    .catch(error => console.error('Error: ', error));
+            }
+
+            function displayItems(items){
+                const menuContent = document.getElementById('menu-content');
+                menuContent.innerHTML = ''; // Clearing current content
+
+                items.forEach(item => {
+                    // Create a container for each menu item
+                    const itemContainer = document.createElement('div');
+                    itemContainer.classList.add('menu-item');
+
+                    // Add the item name
+                    const itemName = document.createElement('h3');
+                    itemName.textContent = item.name;
+                    itemContainer.appendChild(itemName);
+
+                    // Check if the item has small size and add it to the container
+                    const sizes = item.sizes;
+                    for (const [size, price] of Object.entries(sizes)) {
+                        const sizePrice = document.createElement('p');
+                        sizePrice.textContent = `${size}: $${price.toFixed(2)}`;
+                        itemContainer.appendChild(sizePrice);
+                    }
+                    
+                    menuContent.appendChild(itemContainer);
+                });
+            }
+        </script>
+    </body>
+</html>
