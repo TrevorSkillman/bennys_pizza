@@ -26,43 +26,72 @@ def get_category(category_name):
 def items(category_id):
     try:
         items = MenuItem.query.filter_by(category_id=category_id).all()
-        return jsonify([{'name': item.name, 'price': item.price} for item in items])
+        return jsonify([{
+            'name': item.name,
+            'price': item.price,
+            'sizes': item.sizes if item.sizes else None
+        } for item in items])
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify({'error': 'Internal Server Error'}), 500
 
 
-# @main.route('/menu/starters') # Dynamic route
-# def starters():
-#     starter_category = Category.query.filter_by(name='Starters').first() 
-#     if not starter_category:
-#         return jsonify([]) # if starters category is not found, return an empty list.
-#     starter_categories = Category.query.filter_by(parent_id=starter_category.id).all()
-#     return jsonify([{'id': cat.id, 'name': cat.name} for cat in starter_categories])
+@main.route('/menu/starters') # Dynamic route
+def starters():
+    starter_category = Category.query.filter_by(name='Starters').first() 
+    if not starter_category:
+        return jsonify([]) # if starters category is not found, return an empty list.
+    starter_categories = Category.query.filter_by(parent_id=starter_category.id).all()
+    return jsonify([{'id': cat.id, 'name': cat.name} for cat in starter_categories])
 
-# @main.route('/menu/pizza')
-# def pizza():
-#     pizza_category = Category.query.filter_by(name='Pizza').first()
-#     if not pizza_category:
-#         return jsonify([])
-#     pizza_categories = Category.query.filter_by(parent_id=pizza_category.id).all()
-#     return jsonify([{'id': cat.id, 'name': cat.name} for cat in pizza_categories])
+@main.route('/menu/pizza')
+def pizza():
+    pizza_category = Category.query.filter_by(name='Pizza').first()
+    if not pizza_category:
+        return jsonify([])
+    pizza_categories = Category.query.filter_by(parent_id=pizza_category.id).all()
+    return jsonify([{'id': cat.id, 'name': cat.name} for cat in pizza_categories])
 
-# @main.route('/menu/subs')
-# def subs():
-#     subs_category = Category.query.filter_by(name='Subs').first()
-#     if not subs_category:
-#         return jsonify([])
-#     subs_categories = Category.query.filter_by(parent_id=subs_category.id).all()
-#     return jsonify([{'id': cat.id, 'name': cat.name} for cat in subs_categories])
+@main.route('/menu/subs')
+def subs():
+    subs_category = Category.query.filter_by(name='Subs').first()
+    if not subs_category:
+        return jsonify([])
+    subs_categories = Category.query.filter_by(parent_id=subs_category.id).all()
+    return jsonify([{'id': cat.id, 'name': cat.name} for cat in subs_categories])
 
-# @main.route('/menu/meals')
-# def meals():
-#     meals_category = Category.query.filter_by(name='Meals').first()
-#     if not meals_category:
-#         return jsonify([])
-#     meals_categories = Category.query.filter_by(parent_id=meals_category.id).all()
-#     return jsonify([{'id': cat.id, 'name': cat.name} for cat in meals_categories])
+@main.route('/menu/meals')
+def meals():
+    meals_category = Category.query.filter_by(name='Meals').first()
+    if not meals_category:
+        return jsonify([])
+    meals_categories = Category.query.filter_by(parent_id=meals_category.id).all()
+    return jsonify([{'id': cat.id, 'name': cat.name} for cat in meals_categories])
+
+@main.route('/menu/strombolis')
+def strombolis():
+    strombolis_category = Category.query.filter_by(name='Strombolis').first()
+    if not strombolis_category:
+        return jsonify([])
+    items = MenuItem.query.filter_by(category_id=strombolis_category.id).all()
+    return jsonify([{'name': item.name, 'price': item.price, 'sizes': item.sizes if item.sizes else None} for item in items])
+
+@main.route('/menu/desserts')
+def desserts():
+    # finding the desserts category
+    desserts_category = Category.query.filter_by(name='Desserts').first()
+    # if desserts category is not found, return an empty list
+    if not desserts_category:
+        return jsonify([])
+    # finding all the items in the desserts category
+    items = MenuItem.query.filter_by(category_id=desserts_category.id).all()
+    return jsonify([{'name': item.name, 'price': item.price, 'sizes': item.sizes if item.sizes else None} for item in items])
 
 
-
+@main.route('/menu/catering')
+def catering():
+    catering_category = Category.query.filter_by(name='Catering').first()
+    if not catering_category:
+        return jsonify([])
+    items = MenuItem.query.filter_by(category_id=catering_category.id).all()
+    return jsonify([{'name': item.name, 'price': item.price, 'sizes': item.sizes if item.sizes else None} for item in items])

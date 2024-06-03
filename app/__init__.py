@@ -10,7 +10,7 @@ def create_app():
 
     db.init_app(app)
     
-    # Making sure we are within the application context when creating tables
+    # # Making sure we are within the application context when creating tables
     # with app.app_context():
     #     db.create_all() # Creating tables for our data models
 
