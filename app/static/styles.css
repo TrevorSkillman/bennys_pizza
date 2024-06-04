@@ -10,12 +10,17 @@ body {
 
 .header {
     text-align: center;
+<<<<<<< HEAD
     padding: 20px;
+=======
+    padding:20px;
+>>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
     border-bottom: 1px solid gold;
     color: gold;
     background-color: black;
 }
 
+<<<<<<< HEAD
 .nav {
     display: flex;
     justify-content: center;
@@ -30,19 +35,51 @@ body {
     justify-content: center; /* Center the buttons within the container */
     width: 100%; /* Ensure the buttons span the entire width available */
     max-width: 1000px; /* Optional: Limit the maximum width of the button container */
+=======
+.nav{
+    display: flex;
+    text-align: center;
+    background-color: black;
+    color: gold;
+    padding: 10px 0;
+    justify-content: center;
+}
+
+.button-banner{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+>>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
 }
 
 .button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 10px 40px;
     cursor: pointer;
+<<<<<<< HEAD
     background-color: gold;
+=======
+    background-color:gold;
+>>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
     color: black;
     text-decoration: none;
     border: none;
     border-radius: 5px;
+    
 }
 
+.button:hover{
+    background-color: #218838;
+}
+
+#content-area{
+    flex: 1;
+    padding:20xp;
+    text-align: center;
+    color:gold;
+}
+
+<<<<<<< HEAD
 .button:hover {
     background-color: #218838;
 }
@@ -69,21 +106,46 @@ body {
 }
 
 .menu-item h3 {
+=======
+#menu-content {
+    margin-top: 20px;
+    color: gold;
+    background-color: black;
+}
+
+.menu-item{
+    margin:10px 0;
+    padding:10px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.menu-item h3{
+>>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
     margin: 0;
 }
 
 .menu-item p {
     margin: 0;
+<<<<<<< HEAD
     padding: 5px 0; /* Space between sizes and prices */
 }
 
 .footer {
+=======
+    padding: 50x 0;
+}
+
+.footer{
+>>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 20px;
     background-color: black;
     color: gold;
+<<<<<<< HEAD
     border-top: 1px solid gold;
     width: 100%;
     box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
@@ -106,10 +168,45 @@ body {
 }
 
 .footer a {
+=======
+    border-top: 1px solid black;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.footer-section{
+    flex: 1;
+    margin: 10px;
+    min-width: 200px;
+}
+
+.footer-section.left, .footer-section.right{
+    text-align: left;
+}
+
+.footer-section.center{
+    text-align: center;
+}
+
+.footer a{
+>>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
     color: gold;
     text-decoration: none;
 }
 
+<<<<<<< HEAD
 .footer a:hover {
     text-decoration: underline;
+=======
+.footer a:hover{
+    text-decoration: underline;
+}
+
+.footer img{
+    margin: 10px;
+    vertical-align: middle;
+>>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
 }
