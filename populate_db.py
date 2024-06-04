@@ -13,10 +13,7 @@ with app.app_context():
     categories = [
         Category(name='Starters'),
         Category(name='Pizza'),
-<<<<<<< HEAD
         Category(name='Strombolis'),
-=======
->>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
         Category(name='Subs'),
         Category(name='Meals'),
         Category(name='Desserts'),
@@ -88,7 +85,6 @@ with app.app_context():
         MenuItem(name='Cheese Pizza', price=13.25, category_id=category_ids['Regular Pizza'], sizes=json.dumps({'Personal': 13.25, 'Medium': 14.25, 'Large': 15.25})),
         MenuItem(name='Sicilian Pizza', price=22.00, category_id=category_ids['Regular Pizza']),
         # Subcategories for Gourmet Pizza
-<<<<<<< HEAD
         MenuItem(name='German Pizza', price=18.00, category_id=category_ids['Gourmet Pizza'], sizes=json.dumps({'Personal': 18.00, 'Medium': 20.00, 'Large': 22.00})),
         MenuItem(name='White Pizza', price=18.00, category_id=category_ids['Gourmet Pizza'], sizes=json.dumps({'Personal': 18.00, 'Medium': 20.00, 'Large': 22.00})),
         MenuItem(name='Taco Pizza', price=18.00, category_id=category_ids['Gourmet Pizza'], sizes=json.dumps({'Personal': 18.00, 'Medium': 20.00, 'Large': 22.00})),
@@ -121,30 +117,6 @@ with app.app_context():
         MenuItem(name='Sausege Pepper & Onions', price=12.00, category_id=category_ids['Strombolis'], sizes=json.dumps({'Mini': 12.00, 'Med': 18.00, 'Lg': 20.00})),
         MenuItem(name='Calzone', price=12.00, category_id=category_ids['Strombolis'], sizes=json.dumps({'Mini': 12.00, 'Med': 18.00, 'Lg': 20.00})),
 
-=======
-        MenuItem(name='German Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='White Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Taco Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Hawaiian Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Margarita Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Meat Lover Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Chicken Bacon Ranch Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='BBQ Chicken & Ranch Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Buffalo Chicken Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Sweet Chili Chicken Ranch Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='BLT Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Veggie Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Chicago Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Philly Cheese Steak Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='House Special Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Sloppy Joe Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Lasagna Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Thin Style Grandma Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-        MenuItem(name='Angry Pizza', price=18.00, category_id=category_ids['Gourmet Pizza']),
-
-    
-        
->>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
         # Hot Subs list inside of Subs
         MenuItem(name='Cheesesteak', price=10.00, category_id=category_ids['Hot Subs']),
         MenuItem(name='California Cheesesteak', price= 10.50, category_id=category_ids['Hot Subs']),
@@ -248,7 +220,6 @@ with app.app_context():
         MenuItem(name='Tartufo', price=5.00, category_id=category_ids['Desserts']),
 
         # Catering list inside of Catering
-<<<<<<< HEAD
         MenuItem(name='Chicken Parmigiana', price=60.00, category_id=category_ids['Catering'], sizes=json.dumps({'Half Tray': 60.00, 'Full Tray': 90.00})),
         MenuItem(name='Baked Ziti', price=60.00, category_id=category_ids['Catering'], sizes=json.dumps({'Half Tray': 60.00, 'Full Tray': 80.00})),
         MenuItem(name='Eggplant Parmigiana', price=60.00, category_id=category_ids['Catering'], sizes=json.dumps({'Half Tray': 60.00, 'Full Tray': 90.00})),
@@ -269,35 +240,9 @@ with app.app_context():
         MenuItem(name='Antipasto Salad', price=60.00, category_id=category_ids['Catering'], sizes=json.dumps({'Half Tray': 60.00, 'Full Tray': 75.00})),
         MenuItem(name='Chef Salad', price=60.00, category_id=category_ids['Catering'], sizes=json.dumps({'Half Tray': 60.00, 'Full Tray': 75.00})),
         MenuItem(name='Garlic Knots', price=40.00, category_id=category_ids['Catering'], sizes=json.dumps({'Half Tray': 40.00, 'Full Tray': 55.00})),
-=======
-        MenuItem(name='Chicken Parmigiana', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Baked Ziti', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Eggplant Parmigiana', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Eggplant Rollatini', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Chicken Marsala', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Chicken Francese', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Veal Parmigiana', price=75.00, category_id=category_ids['Catering']),
-        MenuItem(name='Veal Marsala', price=75.00, category_id=category_ids['Catering']),
-        MenuItem(name='Penne Ala Vodka', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Spaghetti', price=80.00, category_id=category_ids['Catering']),
-        MenuItem(name='Spaghetti Alfredo', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Raviolis', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Manicotti', price=50.00, category_id=category_ids['Catering']),
-        MenuItem(name='Stuffed Shells', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Meatballs', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Sabrinas Lasagna', price=65.00, category_id=category_ids['Catering']),
-        MenuItem(name='Tossed Salad', price=40.00, category_id=category_ids['Catering']),
-        MenuItem(name='Antipasto Salad', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Chef Salad', price=60.00, category_id=category_ids['Catering']),
-        MenuItem(name='Garlic Knots', price=40.00, category_id=category_ids['Catering']),
->>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
     ]
 
     db.session.add_all(menu_items)
     db.session.commit() # Final commit to save everything
     print(f"Number of categories: {Category.query.all()}") # Debugging print to check the number of categories
-<<<<<<< HEAD
     print(f"Number of menu items: {MenuItem.query.all()}") # Debugging print to check the number of menu items
-=======
-    print(f"Number of menu items: {MenuItem.query.all()}") # Debugging print to check the number of menu items
->>>>>>> f6e033f9f666e7ea67e374324f7c50bfb4b8aa25
