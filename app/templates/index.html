@@ -37,7 +37,7 @@
             <img src="{{ url_for('static', filename='visa_logo.png') }}" alt="Visa Logo" style="height: 40px;">
         </div>
         <div class="footer-section right">
-            <div><a href="link-to-fb-page">Link to FB</a></div>
+            <div><a href="https://www.facebook.com/bennyspizza715/">Like us on Facebook!</a></div>
         </div>
     </div>
 
@@ -89,11 +89,15 @@
                 if (item.sizes) {
                     try{
                         const sizes = JSON.parse(item.sizes);
+                        const sizesContainer = document.createElement('div'); // creating a container for sizes
+                        sizesContainer.classList.add('sizes-container'); // Adding a class for size of card
                         for (const [size, price] of Object.entries(sizes)) {
-                            const sizePrice = document.createElement('p');
-                            sizePrice.textContent = `${size}: $${price.toFixed(2)}`;
-                            itemContainer.appendChild(sizePrice);
+                            const sizeCard = document.createElement('div');
+                            sizeCard.classList.add('size-card'); // Added class for individual size card
+                            sizeCard.textContent = `${size}: $${price.toFixed(2)}`;
+                            sizesContainer.appendChild(sizeCard);
                     }
+                    itemContainer.appendChild(sizesContainer);
                 } catch (e) {
                     console.error('Error parsing sizes:', e)
                 }

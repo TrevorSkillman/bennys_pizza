@@ -5,6 +5,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
+    align-items: center; /* Center content horizontally */
     min-height: 100vh;
 }
 
@@ -14,6 +15,8 @@ body {
     border-bottom: 1px solid gold;
     color: gold;
     background-color: black;
+    width: 100%; /* Make header span the full width */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
 .nav {
@@ -22,41 +25,41 @@ body {
     background-color: black;
     color: gold;
     padding: 10px 0;
+    width: 100%; /* Make nav span the full width */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
 #button-banner {
     display: flex;
-    gap: 10px;
-    justify-content: center; /* Center the buttons within the container */
-    width: 100%; /*  the buttons span the entire width available */
-    max-width: 1000px; /* Limit the maximum width of the button container */
+    justify-content: center;
+    flex-wrap: wrap; /* Ensure buttons wrap on small screens */
+    width: 50%;
+    max-width: 1000px;
+    padding: 0 10px; /* Add padding to prevent content overflow */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
 .button {
     display: inline-block;
-    padding: 10px 40px;
+    padding: 10px 20px; /* Adjust padding for better fit */
     cursor: pointer;
-    background-color: gold;
+    background: gold; /* Fallback color */
+    background: linear-gradient(45deg, #FFD700, #FFDF00, #FFD700); /* Gradient for shiny gold effect */
     color: black;
     text-decoration: none;
     border: none;
     border-radius: 5px;
-    
-}
-
-.button:hover{
-    background-color: #218838;
-}
-
-#content-area{
-    flex: 1;
-    padding:20xp;
-    text-align: center;
-    color:gold;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for 3D effect */
+    transition: background 0.3s, box-shadow 0.3s;
+    flex: 1 1 auto; /* Allow buttons to flex and wrap */
+    min-width: 150px; /* Minimum width for buttons */
+    text-align: center; /* Center text */
 }
 
 .button:hover {
-    background-color: #218838;
+    background: #218838; /* Invert gradient on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Enhance shadow on hover */
 }
 
 #content-area {
@@ -64,29 +67,79 @@ body {
     padding: 20px;
     text-align: center;
     color: gold;
+    width: 100%; /* Make content area span the full width */
+    max-width: 1000px; /* Limit the content width */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
 #menu-content {
     margin-top: 20px;
     color: gold;
     background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center menu items horizontally */
+    width: 100%; /* Ensure it takes full width */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
 .menu-item {
-    margin: 10px 0;
-    padding: 10px;
+    margin: 20px 0;
+    padding: 20px;
     border: 1px solid gold;
     border-radius: 5px;
-    text-align: left; /* Align text to the left */
+    background-color: #222; /* Add a background color for better separation */
+    text-align: center; /* Align text to the left */
+    transition: transform 0.2s; /* Add transition for hover effect */
+    width: 100%; /* Make menu item span full width */
+    max-width: 800px; /* Limit menu item width */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+.menu-item:hover {
+    transform: scale(1.05); /* Slightly enlarge item on hover */
+    z-index: 1; /* Bring the hovered item above others */
 }
 
 .menu-item h3 {
-    margin: 0;
+    margin: 0 0 10px 0; /* Added bottom margin */
+    font-size: 1.5em; /* Larger font size */
+    color: gold;
 }
 
 .menu-item p {
-    margin: 0;
-    padding: 5px 0; /* Space between sizes and prices */
+    margin: 5px 0; /* Space between the description and the price */
+    color: gold;
+}
+
+/* New styles for size cards */
+.sizes-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    flex-wrap: wrap; /* Allow size cards to wrap to the next line if necessary */
+    width: 100%; /* Ensure it takes full width */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+.size-card {
+    background: gold; /* Fallback color */
+    background: linear-gradient(45deg, #FFD700, #FFDF00, #FFD700); /* Gradient for shiny gold effect */
+    color: black;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    width: 30%; /* Adjust width as necessary */
+    min-width: 120px; /* Ensure minimum width for size cards */
+    margin: 5px; /* Add margin between size cards */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background 0.3s, box-shadow 0.3s;
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+.size-card:hover {
+    background: linear-gradient(45deg, #FFDF00, #FFD700, #FFDF00); /* Invert gradient on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Add a hover effect for size cards */
 }
 
 .footer {
@@ -108,9 +161,12 @@ body {
     box-sizing: border-box; /* padding and border are included in the element's total width and height */
 }
 
-.footer-section.left,
-.footer-section.right {
+.footer-section.left {
     text-align: left;
+}
+
+.footer-section.right {
+    text-align: right;
 }
 
 .footer-section.center {
@@ -124,4 +180,21 @@ body {
 
 .footer a:hover {
     text-decoration: underline;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+    .button {
+        padding: 10px 20px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    .menu-item {
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .size-card {
+        width: 45%; /* Adjust width for smaller screens */
+        margin: 10px; /* Adjust margin for better spacing */
+    }
 }

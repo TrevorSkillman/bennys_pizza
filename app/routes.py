@@ -93,12 +93,4 @@ def catering():
     if not catering_category:
         return jsonify([])
     items = MenuItem.query.filter_by(category_id=catering_category.id).all()
-    return jsonify([{'name': item.name, 'price': item.price} for item in items])
-
-@main.route('/menu/catering')
-def catering():
-    catering_category = Category.query.filter_by(name='Catering').first()
-    if not catering_category:
-        return jsonify([])
-    items = MenuItem.query.filter_by(category_id=catering_category.id).all()
     return jsonify([{'name': item.name, 'price': item.price, 'sizes': item.sizes if item.sizes else None} for item in items])
