@@ -12,7 +12,22 @@ class Category(db.Model):
 class MenuItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Float, nullable=False)
+    price = db.Column(db.Float, nullable=True)
     sizes = db.Column(db.String(200), nullable=True)
+    description = db.Column(db.String(500), nullable=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', backref='menu_items')
+
+def __repr__(self):
+    return f'<MenuItem {self.name}>' # This is for a readable string representation of the object
+
+# Converting the model instance to a dictionary, which includes all fields
+def to_dict(self):
+    return {
+        'id': self.id,
+        'name': self.name,
+        'price': self.price,
+        'sizes': self.sizes,
+        'description': self.description,
+        'category_id': self.category_id
+    }

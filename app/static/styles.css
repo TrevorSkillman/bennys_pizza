@@ -197,4 +197,29 @@ body {
         width: 45%; /* Adjust width for smaller screens */
         margin: 10px; /* Adjust margin for better spacing */
     }
+
+    .sauces {
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        margin: 20px 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .sauces p {
+        display: inline-block;
+        background-color: gold;
+        color: black;
+        padding: 5px 10px;
+        margin: 5px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: brackground 0.3s, box-shadow 0.3s;
+    }
+
+    .sauces p:hover {
+        background-color: darkgoldenrod;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }

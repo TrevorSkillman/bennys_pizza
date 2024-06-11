@@ -37,26 +37,28 @@
             <img src="{{ url_for('static', filename='visa_logo.png') }}" alt="Visa Logo" style="height: 40px;">
         </div>
         <div class="footer-section right">
-            <div><a href="https://www.facebook.com/bennyspizza715/">Like us on Facebook!</a></div>
+            <div><a href="https://www.facebook.com/bennyspizza715/" target="_blank">Like us on Facebook!</a></div>
         </div>
     </div>
 
     <script>
         function loadSection(section) {
+            console.log('Loading section:', section); // Debugging
             const url = `/menu/${section}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
+                    console.log('Loaded section data:', data); // Debugging
                     const menuContent = document.getElementById('menu-content');
                     menuContent.innerHTML = ''; // Clear current content
-
+    
                     if (section === 'desserts' || section === 'catering' || section === 'strombolis') {
                         displayItems(data);
                     } else {
                         data.forEach(cat => {
                             const subcategoryDiv = document.createElement('div');
                             subcategoryDiv.textContent = cat.name;
-                            subcategoryDiv.onclick = function() { loadItems(cat.id); };
+                            subcategoryDiv.onclick = function() { loadItems(cat.id, cat.name); }; // Pass category name
                             subcategoryDiv.classList.add('button');
                             menuContent.appendChild(subcategoryDiv);
                         });
@@ -64,30 +66,61 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
-
-        function loadItems(categoryId) {
+    
+        function loadItems(categoryId, categoryName) {
+            console.log('Loading items for category ID:', categoryId, 'Category Name:', categoryName); // Debugging
             const url = `/menu/items/${categoryId}`;
             fetch(url)
                 .then(response => response.json())
-                .then(items => displayItems(items))
+                .then(items => {
+                    console.log('Fetched items:', items); // Debugging
+                    const menuContent = document.getElementById('menu-content');
+                    menuContent.innerHTML = ''; // Clear current content
+    
+                    // Checking if the category is Wings to add sauces section
+                    if (categoryName === 'Wings') {
+                        console.log('Adding sauces section'); // Debugging
+                        const saucesHeader = document.createElement('h3');
+                        saucesHeader.textContent = 'Sauces';
+                        menuContent.appendChild(saucesHeader);
+    
+                        const sauces = ['Hot', 'Mild', 'BBQ', 'Honey Hot', 'Honey BBQ', 'Honey Mustard', 'Sweet Chili', 'Garlic Parmesan', 'Old Bay Hot'];
+                        const saucesDiv = document.createElement('div');
+                        saucesDiv.classList.add('sauces');
+    
+                        sauces.forEach(sauce => {
+                            const sauceItem = document.createElement('p');
+                            sauceItem.textContent = sauce;
+                            saucesDiv.appendChild(sauceItem);
+                        });
+    
+                        menuContent.appendChild(saucesDiv);
+                    }
+                    displayItems(items);
+                })
                 .catch(error => console.error('Error:', error));
         }
-
+    
         function displayItems(items) {
+            console.log('Displaying items:', items); // Debugging
             const menuContent = document.getElementById('menu-content');
             menuContent.innerHTML = ''; // Clear current content
-
+    
             items.forEach(item => {
                 const itemContainer = document.createElement('div');
                 itemContainer.classList.add('menu-item');
-
+    
                 const itemName = document.createElement('h3');
                 itemName.textContent = item.name;
                 itemContainer.appendChild(itemName);
-
-                
+    
+                // adding descriptions
+                const itemDescription = document.createElement('p');
+                itemDescription.textContent = item.description;
+                itemContainer.appendChild(itemDescription);
+    
                 if (item.sizes) {
-                    try{
+                    try {
                         const sizes = JSON.parse(item.sizes);
                         const sizesContainer = document.createElement('div'); // creating a container for sizes
                         sizesContainer.classList.add('sizes-container'); // Adding a class for size of card
@@ -96,16 +129,16 @@
                             sizeCard.classList.add('size-card'); // Added class for individual size card
                             sizeCard.textContent = `${size}: $${price.toFixed(2)}`;
                             sizesContainer.appendChild(sizeCard);
+                        }
+                        itemContainer.appendChild(sizesContainer);
+                    } catch (e) {
+                        console.error('Error parsing sizes:', e);
                     }
-                    itemContainer.appendChild(sizesContainer);
-                } catch (e) {
-                    console.error('Error parsing sizes:', e)
+                } else {
+                    const price = document.createElement('p');
+                    price.textContent = item.price === null ? 'Market Price' : `$${item.price.toFixed(2)}`;
+                    itemContainer.appendChild(price);
                 }
-            } else {
-                const price = document.createElement('p');
-                price.textContent = `$${item.price.toFixed(2)}`;
-                itemContainer.appendChild(price);
-            }
                 menuContent.appendChild(itemContainer);
             });
         }

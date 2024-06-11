@@ -26,10 +26,13 @@ def get_category(category_name):
 def items(category_id):
     try:
         items = MenuItem.query.filter_by(category_id=category_id).all()
+        category_name = Category.query.get(category_id).name
         return jsonify([{
             'name': item.name,
             'price': item.price,
-            'sizes': item.sizes if item.sizes else None
+            'sizes': item.sizes if item.sizes else None,
+            'description': item.description,
+            'category': category_name
         } for item in items])
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -74,7 +77,12 @@ def strombolis():
     if not strombolis_category:
         return jsonify([])
     items = MenuItem.query.filter_by(category_id=strombolis_category.id).all()
-    return jsonify([{'name': item.name, 'price': item.price, 'sizes': item.sizes if item.sizes else None} for item in items])
+    return jsonify([{
+        'name': item.name, 
+        'price': item.price, 
+        'sizes': item.sizes if item.sizes else None,
+        'description': item.description
+    } for item in items])
 
 @main.route('/menu/desserts')
 def desserts():
@@ -85,7 +93,12 @@ def desserts():
         return jsonify([])
     # finding all the items in the desserts category
     items = MenuItem.query.filter_by(category_id=desserts_category.id).all()
-    return jsonify([{'name': item.name, 'price': item.price, 'sizes': item.sizes if item.sizes else None} for item in items])
+    return jsonify([{
+        'name': item.name, 
+        'price': item.price, 
+        'sizes': item.sizes if item.sizes else None,
+        'description': item.description    
+    } for item in items])
 
 @main.route('/menu/catering')
 def catering():
@@ -93,4 +106,9 @@ def catering():
     if not catering_category:
         return jsonify([])
     items = MenuItem.query.filter_by(category_id=catering_category.id).all()
-    return jsonify([{'name': item.name, 'price': item.price, 'sizes': item.sizes if item.sizes else None} for item in items])
+    return jsonify([{
+        'name': item.name, 
+        'price': item.price, 
+        'sizes': item.sizes if item.sizes else None,
+        'description': item.description    
+    } for item in items])
