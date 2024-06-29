@@ -1,47 +1,77 @@
+<!-- This is the main structure of Benny's Pizza  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Benny's Pizza</title>
+    <!-- Linking to the external CSS file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <!-- Header section showing the log and info -->
     <div class="header">
+        <img src="{{  url_for('static', filename='images/benny_logo.png') }}" alt="Benny's Logo" style="height: 100px; margin-right: 10px;"/>
         <h1>Welcome to Benny's Pizza on Route 715!</h1>
-        <p>Phone Number goes here.</p>
+        <p>570-420-7770</p>
         <p>Dine-in - Take-out - Catering - Deliveries - Parties</p>
     </div>
 
+    <!-- Navigation bar for the menu sections -->
     <div class="nav">
         <div id="button-banner">
-            <a class="button" onclick="loadSection('starters')">Starters</a>
-            <a class="button" onclick="loadSection('pizza')">Pizza</a>
-            <a class="button" onclick="loadSection('strombolis')">Strombolis</a>
-            <a class="button" onclick="loadSection('subs')">Subs</a>
-            <a class="button" onclick="loadSection('meals')">Meals</a>
-            <a class="button" onclick="loadSection('desserts')">Desserts</a>
-            <a class="button" onclick="loadSection('catering')">Catering</a>
+            <!-- Each button loads a specific menu section -->
+            <a class="button" onclick="loadSection('starters')">
+                <img src="{{ url_for('static', filename='images/starters_logo.png') }}" alt="Starters">
+                <span>Starters</span>
+            </a>
+            <a class="button" onclick="loadSection('pizza')" alt="Pizza">
+                <img src="{{ url_for('static', filename='images/pizza_logo.png') }}" alt="Pizza">
+                <span>Pizza</span>
+            </a>
+            <a class="button" onclick="loadSection('strombolis')">
+                <img src="{{ url_for('static', filename='images/stromboli_logo.png') }}" alt="Strombolis">
+                <span>Strombolis</span>
+            </a>
+            <a class="button" onclick="loadSection('subs')">
+                <img src="{{ url_for('static', filename='images/subs_logo.png') }}" alt="Subs">
+                <span>Subs</span>
+            </a>
+            <a class="button" onclick="loadSection('meals')">
+                <img src="{{ url_for('static', filename='images/meals_logo.png') }}" alt="Meals">
+                <span>Meals</span>
+            </a>
+            <a class="button" onclick="loadSection('desserts')">
+                <img src="{{ url_for('static', filename='images/desserts_logo.png') }}" alt="Desserts">
+                <span>Desserts</span>
+            </a>
+            <a class="button" onclick="loadSection('catering')">
+                <img src="{{ url_for('static', filename='images/catering_logo.png') }}" alt="Catering">
+                <span>Catering</span>
+            </a>
         </div>
     </div>
-
+    <!-- Main content area where menu details are loaded dynamically -->
     <div id="content-area">
         <div id="menu-content"></div>
     </div>
-
+    <!-- Footer section with address and Facebook link -->
     <div class="footer">
         <div class="footer-section left">
             <p>1523 Route 715, Stroudsburg, PA 18360</p>
+            <a href="{{ url_for('main.login') }}" class="button" style="height: 20px; text-align: center;">Employees</a>
         </div>
         <div class="footer-section center">
-            <img src="{{ url_for('static', filename='mastercar_logo.png') }}" alt="Mastercard Logo" style="height: 40px; margin-right: 10px;">
-            <img src="{{ url_for('static', filename='visa_logo.png') }}" alt="Visa Logo" style="height: 40px;">
+            <img src="{{ url_for('static', filename='images/mastercar_logo.png') }}" alt="Mastercard Logo" style="height: 40px; margin-right: 10px;">
+            <img src="{{ url_for('static', filename='images/visa_logo.png') }}" alt="Visa Logo" style="height: 40px;">
         </div>
         <div class="footer-section right">
+            <!-- Link to Facebook -->
             <div><a href="https://www.facebook.com/bennyspizza715/" target="_blank">Like us on Facebook!</a></div>
         </div>
     </div>
 
     <script>
+        // Function to load a specific menu section
         function loadSection(section) {
             console.log('Loading section:', section); // Debugging
             const url = `/menu/${section}`;
@@ -55,18 +85,32 @@
                     if (section === 'desserts' || section === 'catering' || section === 'strombolis') {
                         displayItems(data);
                     } else {
+                        const subcategoryContainer = document.createElement('div');
+                        subcategoryContainer.classList.add('horizontal-scroll'); // Added class for horizontal scroll
+
                         data.forEach(cat => {
                             const subcategoryDiv = document.createElement('div');
-                            subcategoryDiv.textContent = cat.name;
-                            subcategoryDiv.onclick = function() { loadItems(cat.id, cat.name); }; // Pass category name
                             subcategoryDiv.classList.add('button');
-                            menuContent.appendChild(subcategoryDiv);
+                            subcategoryDiv.onclick = function() { loadItems(cat.id, cat.name); }; // Pass category name
+                            
+                            const img = document.createElement('img');
+                            img.src = `/static/${cat.image}`; // Ensure image path is correct
+                            img.alt = cat.name;
+
+                            const span = document.createElement('span');
+                            span.textContent = cat.name;
+                            
+                            subcategoryDiv.appendChild(img); // Append image to subcategory div
+                            subcategoryDiv.appendChild(span); // Append span to subcategory div
+                            subcategoryContainer.appendChild(subcategoryDiv); // Append subcategory div to menu content
                         });
+
+                        menuContent.appendChild(subcategoryContainer);
                     }
                 })
                 .catch(error => console.error('Error:', error));
         }
-    
+        // Function to load specific menu section items
         function loadItems(categoryId, categoryName) {
             console.log('Loading items for category ID:', categoryId, 'Category Name:', categoryName); // Debugging
             const url = `/menu/items/${categoryId}`;
@@ -93,14 +137,14 @@
                             sauceItem.textContent = sauce;
                             saucesDiv.appendChild(sauceItem);
                         });
-    
+
                         menuContent.appendChild(saucesDiv);
                     }
                     displayItems(items);
                 })
                 .catch(error => console.error('Error:', error));
         }
-    
+        // This function displays items in the menu
         function displayItems(items) {
             console.log('Displaying items:', items); // Debugging
             const menuContent = document.getElementById('menu-content');

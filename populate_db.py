@@ -1,15 +1,19 @@
+"""
+This populates the database for Bennys Pizza. 
+It creates categories, subcategories, and menu items with associated data.
+"""
+
 from app import create_app, db
 from app.models import MenuItem, Category
 import json
-# from .app.extensions import db
 
 app = create_app()
-#app.app_context().push()
 with app.app_context():
+    # Dropping all existing tables and creates new ones
     db.drop_all()
     db.create_all()
 
-    # Creating the category 
+    # Creating the main categories
     categories = [
         Category(name='Starters'),
         Category(name='Pizza'),
@@ -41,7 +45,7 @@ with app.app_context():
     db.session.commit()
 
 
-    # Defining menu items linked to their subcategories
+    # Mapping category names to their ids.
     category_ids = {cat.name: cat.id for cat in Category.query.all()}
 
     # Creating menu items using the dictionary to get the correct category_ids

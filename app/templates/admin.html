@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+
+    <body>
+        <h1>Admin Page</h1>
+        <nav>
+            <a href="{{ url_for('main.index') }}" class="button">
+                <img src="{{  url_for('static', filename='images/benny_logo.png') }}" alt="Benny's Logo" class="logo">
+                <span>Home</span>
+            </a>
+            
+        </nav>
+        <form id="adminForm">
+            <div>
+                <label for="itemSelect">Select Item: </label>
+                <select id="itemSelect" name="itemId">
+                    {% for item in items %}
+                        <option value="{{ item.id }}">{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="itemDesc">Description: </label>
+                <textarea id="itemDesc" name="itemDesc"></textarea>
+            </div>
+            <div>
+                <label for="itemPrice">Price: </label>
+                <input type="text" id="itemPrice" name="itemPrice">
+            </div>
+            <button type="submit">Update</button>
+        </form>
+
+        <script src="{{ url_for('static', filename='admin.js') }}"></script>
+    </body>
+</html>
